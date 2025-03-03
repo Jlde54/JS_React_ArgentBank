@@ -18,7 +18,7 @@ Please make sure you have the right versions and download both packages. You can
 node --version
 
 # Check Mongo version
-mongo --version
+mongod --version
 ```
 
 ### Instructions
@@ -39,7 +39,7 @@ npm run dev:server
 npm run populate-db
 ```
 
-Your server should now be running at http://locahost:3001 and you will now have two users in your MongoDB database!
+Your server should now be running at http://127.0.0.1:3001 and you will now have two users in your MongoDB database!
 
 ## Populated Database Data
 
