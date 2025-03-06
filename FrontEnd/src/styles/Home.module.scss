@@ -1,0 +1,7 @@
+@import './-variables.scss';
+@import './-mixins.scss';
+
+.home {
+    @include fontStyle(16px,500);
+    @include flexContainer(column, space-between, center);
+}

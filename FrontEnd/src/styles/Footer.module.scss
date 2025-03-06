@@ -1,0 +1,9 @@
+@import './-variables.scss';
+@import './-mixins.scss';
+
+.footer {
+    width: 100%;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 2px solid #ccc;
+}

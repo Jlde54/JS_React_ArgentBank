@@ -1,0 +1,22 @@
+@import './-variables.scss';
+@import './-mixins.scss';
+
+.feature {
+    @include dimension(33%, 300px);
+    @include flexContainer(column, space-between, center);
+    padding: 2.5rem;
+    &__icon {
+        @include dimension(100px, 100px);
+        border: 10px solid #00bc77;
+        border-radius: 50%;
+        padding: 1rem;
+    }
+    &__title {
+        @include fontStyle(20px, 700);
+        margin: 0;
+    }
+    &__text {
+        text-align: center;
+        margin: 0;
+    }
+}

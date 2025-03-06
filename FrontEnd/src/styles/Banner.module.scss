@@ -1,0 +1,32 @@
+@import './-variables.scss';
+@import './-mixins.scss';
+
+.banner {
+    @include dimension(100%, 400px);
+    overflow: hidden;
+    position: relative;
+    overflow: hidden;
+    &__img {
+        @include dimension(100%, auto);
+        position: absolute;
+        top: -180px;
+    }
+    &__content {
+        position: absolute;
+        top: 50px;
+        right: 50px;
+        width: 300px;
+        margin: 2rem;
+        padding: 2rem;
+        text-align: left;
+        background-color: $white-color;
+    }
+    &__subtitle {
+        @include fontStyle(1.5rem, 700);
+        margin: 0;
+
+    }
+    &__text {
+        @include fontStyle(1.2rem, 500);
+    }
+}

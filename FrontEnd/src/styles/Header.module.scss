@@ -1,0 +1,21 @@
+@import './-variables.scss';
+@import './-mixins.scss';
+
+.header {
+    width: 100%;
+    &__nav {
+        @include flexContainer(row, space-between, center);
+        margin: 10px 20px;
+    }
+    &__img {
+        width: 200px;
+        height: 54px;
+    }
+    &__link {
+        @include flexContainer(row, space-between, center);
+        @include fontStyle(16px, 700);
+        gap: 10px;
+        text-decoration: none;
+        color: $main-color;
+    }
+}
