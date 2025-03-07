@@ -5,7 +5,6 @@
     @include dimension(100%, 400px);
     overflow: hidden;
     position: relative;
-    overflow: hidden;
     &__img {
         @include dimension(100%, auto);
         position: absolute;

@@ -25,7 +25,19 @@ function Header () {
                             <i className="fa fa-user-circle"></i>
                             <p>Sign In</p>
                         </Link>
-                     }
+                    }
+                    {currentPage.pathname === "/user" &&
+                        <>
+                            <Link className={styles.header__link} to={'/sign-in'}>
+                                <i className="fa fa-user-circle"></i>
+                                <p>User name</p>
+                            </Link>
+                            <Link className={styles.header__link} to={'/'}>
+                                <i className="fa fa-sign-out"></i>
+                                <p>Sign Out</p>
+                            </Link>
+                        </>
+                    }
                 </div>
             </nav>
         </div>

@@ -1,0 +1,41 @@
+@import './-variables.scss';
+@import './-mixins.scss';
+
+.account {
+    @include flexContainer(row, space-between, center);
+    width: 80%;
+    background-color: $white-color;
+    border: 1px solid $black-color;
+    margin: 0 auto;
+    padding: 1.5rem;
+    text-align: left;
+    margin-bottom: 2rem;
+    &__content {
+
+    }
+    &__title {
+        @include fontStyle (1rem, 500);
+        margin: 0;
+        padding: 0;
+    }
+    &__amount {
+        @include fontStyle (2.5rem, 700);
+        margin: 0;
+    }
+    &__description {
+        margin: 0;
+    }
+    &__button {
+
+    }
+    &__transactionButton {
+        @include flexContainer(column, space-between, center);
+        @include fontStyle(1.1rem, 700);
+        background-color: $bg-green-color;
+        border-color: $bg-green-color;
+        color: $white-color;
+        padding: 8px;
+        margin-top: 1rem;
+        width: 200px;
+    }
+}

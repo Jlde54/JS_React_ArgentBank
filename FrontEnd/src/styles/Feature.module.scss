@@ -3,17 +3,18 @@
 
 .feature {
     @include dimension(33%, 300px);
-    @include flexContainer(column, space-between, center);
+    @include flexContainer(column, normal, center);
     padding: 2.5rem;
     &__icon {
         @include dimension(100px, 100px);
         border: 10px solid #00bc77;
         border-radius: 50%;
         padding: 1rem;
+        margin-bottom: 5px;
     }
     &__title {
         @include fontStyle(20px, 700);
-        margin: 0;
+        margin-bottom: 15px;
     }
     &__text {
         text-align: center;
