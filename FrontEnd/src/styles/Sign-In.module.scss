@@ -1,0 +1,43 @@
+@import './-variables.scss';
+@import './-mixins.scss';
+
+.signIn {
+    width: 100%;
+    height : 903px;
+    background-color: $bg-blue-color;
+    display: flex;
+    &__content {
+        background-color: $white-color;
+        max-height: 300px;
+        margin: 0 auto;
+        margin-top: 3rem;
+        padding: 2rem;
+        text-align: center;
+    }
+    &__inputWrapper {
+        @include flexContainer(column, space-between, start);
+        margin-bottom: 1rem;
+        label {
+            font-weight: 700;
+        }
+        input {
+            width: 236px;
+            padding: 5px;
+            @include fontStyle (1.2rem, 500);
+        }
+    }
+    &__inputRemember {
+        @include flexContainer(row, left, center);
+        gap: 10px;
+    }
+    &__button {
+        @include flexContainer(column, space-between, center);
+        @include fontStyle(1.1rem, 700);
+        background-color: $bg-green-color;
+        border-color: $bg-green-color;
+        color: $white-color;
+        padding: 8px;
+        margin-top: 1rem;
+        width: 100%;
+    }
+}

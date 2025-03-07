@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 import styles from '../styles/Header.module.scss'
 import logo from '../assets/argentBankLogo.png'
 
@@ -9,6 +9,7 @@ import logo from '../assets/argentBankLogo.png'
  * @returns {JSX.Element} - rendered Header component
  */
 function Header () {
+    const currentPage = useLocation();
     return (
         <div className={styles.header}>
             <nav className={styles.header__nav}>
@@ -19,10 +20,12 @@ function Header () {
                     </Link>
                 </div>
                 <div className={styles.header__signIn}>
-                    <Link className={styles.header__link} to={'/'}>
-                        <i className="fa fa-user-circle"></i>
-                        <p>Sign In</p>
-                    </Link>
+                    {(currentPage.pathname === "/" || currentPage.pathname === "/sign-in") &&
+                        <Link className={styles.header__link} to={'/sign-in'}>
+                            <i className="fa fa-user-circle"></i>
+                            <p>Sign In</p>
+                        </Link>
+                     }
                 </div>
             </nav>
         </div>
