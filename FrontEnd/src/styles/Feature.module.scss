@@ -21,3 +21,9 @@
         margin: 0;
     }
 }
+
+@media screen and (max-width: 920px) {
+    .feature {
+        @include dimension(90%, 250px);
+    }
+}

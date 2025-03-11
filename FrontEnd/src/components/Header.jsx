@@ -10,11 +10,21 @@ import logo from '../assets/argentBankLogo.png'
  */
 function Header () {
     const currentPage = useLocation();
+    const firstName = localStorage.getItem("firstName")
+
+    function handleLogout () {
+        localStorage.removeItem("token")
+        localStorage.removeItem("firstName")
+        localStorage.removeItem("lastName")
+    }
+
     return (
         <div className={styles.header}>
             <nav className={styles.header__nav}>
                 <div className={styles.header__logo}>
-                    <Link to={'/'}>
+                    <Link 
+                        to={'/'} 
+                        onClick={handleLogout}>
                         <img className={styles.header__img} src={logo} alt="Argent Bank Logo"/>
                         <h1 className="sr-only">Argent Bank</h1>
                     </Link>
@@ -26,13 +36,18 @@ function Header () {
                             <p>Sign In</p>
                         </Link>
                     }
-                    {currentPage.pathname === "/user" &&
+                    {(currentPage.pathname === "/User" || currentPage.pathname === "/EditUser") &&
                         <>
-                            <Link className={styles.header__link} to={'/sign-in'}>
+                            <Link 
+                                className={styles.header__link} 
+                                to={'/User'}>
                                 <i className="fa fa-user-circle"></i>
-                                <p>User name</p>
+                                <p>{firstName}</p>
                             </Link>
-                            <Link className={styles.header__link} to={'/'}>
+                            <Link 
+                                className={styles.header__link} 
+                                to={'/'}
+                                onClick={handleLogout}>
                                 <i className="fa fa-sign-out"></i>
                                 <p>Sign Out</p>
                             </Link>

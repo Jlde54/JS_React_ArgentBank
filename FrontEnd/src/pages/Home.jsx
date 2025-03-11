@@ -1,6 +1,7 @@
 import styles from '../styles/Home.module.scss'
 import Banner from '../components/Banner.jsx'
 import Features from '../components/Features.jsx'
+import Header from '../components/Header.jsx'
 
 /**
  * Home Component - Displays the homepage
@@ -10,10 +11,13 @@ import Features from '../components/Features.jsx'
  */
 function Home () {
     return (
-        <div className={styles.home}>
-            <Banner />
-            <Features />
-        </div>
+        <>
+            <Header />
+            <div className={styles.home}>
+                <Banner />
+                <Features />
+            </div>
+        </>
     )
 }
 

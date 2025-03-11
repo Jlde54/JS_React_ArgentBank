@@ -4,3 +4,9 @@
 .features {
     @include flexContainer(row, space-between, center);
 }
+
+@media screen and (max-width : 920px) {
+    .features {
+        @include flexContainer(column, space-between, center);
+    }
+}

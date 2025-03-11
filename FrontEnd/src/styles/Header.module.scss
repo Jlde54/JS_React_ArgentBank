@@ -9,7 +9,7 @@
         padding: 5px 20px;
     }
     &__img {
-        width: 200px;
+        // width: 200px;
         height: 54px;
     }
     &__signIn {
@@ -24,6 +24,11 @@
         color: $main-color;
         p {
             margin: 0;
+        }
+    }
+    &__link {
+        p:hover {
+            text-decoration: underline;
         }
     }
 }
