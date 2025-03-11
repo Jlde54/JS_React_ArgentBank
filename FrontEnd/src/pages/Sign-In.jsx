@@ -30,31 +30,30 @@ function Sign_In () {
         e.preventDefault()
         setError("")
         try {
-            const response = await fetch("http://localhost:3001/api/v1/user/login", {
+            const resLogin = await fetch("http://localhost:3001/api/v1/user/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
             })
-            const data1 = await response.json()
-            if (!response.ok) throw new Error(data1.message || "Identifiants invalides")
+            const dataLogin = await resLogin.json()
+            if (!resLogin.ok) throw new Error(dataLogin.message || "Identifiants invalides")
 
-            localStorage.setItem("token", data1.body.token)
-            const token = localStorage.getItem("token")
-            
+            localStorage.setItem("token", dataLogin.body.token)
+
             try {
-                const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+                const resProfile = await fetch("http://localhost:3001/api/v1/user/profile", {
                     method: "POST",
                     headers: {
-                        "Authorization": `Bearer ${token}`, // Envoie le token dans le header
+                        "Authorization": `Bearer ${dataLogin.body.token}`, // Envoie le token dans le header
                         "Content-Type": "application/json",
                     },
                 })
 
-                const data2 = await response.json()
-                if (!response.ok) throw new Error(data2.message || "Erreur de récupération")
+                const dataProfile = await resProfile.json()
+                if (!resProfile.ok) throw new Error(dataProfile.message || "Erreur de récupération")
                 
-                localStorage.setItem("firstName", data2.body.firstName)
-                localStorage.setItem("lastName", data2.body.lastName)
+                localStorage.setItem("firstName", dataProfile.body.firstName)
+                localStorage.setItem("lastName", dataProfile.body.lastName)
 
             } catch (error) {
                 console.error(error)

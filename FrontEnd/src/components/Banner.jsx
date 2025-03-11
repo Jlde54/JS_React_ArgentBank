@@ -20,6 +20,7 @@ function Banner () {
         <div className={styles.banner}>
             <img className={styles.banner__img} src={BANNER_DATA.imgSrc} alt={BANNER_DATA.imgAlt}/>
             <section className={styles.banner__content} >
+                <h2 className="sr-only">Promoted Content</h2>
                 <p className={styles.banner__subtitle} >{BANNER_DATA.subtitle1}</p>
                 <p className={styles.banner__subtitle} >{BANNER_DATA.subtitle2}</p>
                 <p className={styles.banner__subtitle} >{BANNER_DATA.subtitle3}</p>

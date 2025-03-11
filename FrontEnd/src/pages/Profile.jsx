@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import styles from '../styles/EditUser.module.scss'
+import styles from '../styles/Profile.module.scss'
 import Account from '../components/Account.jsx'
 import Header from '../components/Header.jsx'
 import DATA from '../data/dataAccount.js'
 
 /**
- * EditUser Component - Displays the homepage
+ *Profile Component - Displays the homepage
  *
  * @component
- * @returns {JSX.Element} - rendered EditUser component
+ * @returns {JSX.Element} - rendered Profile component
  */
-function EditUser () {
+function Profile () {
 
     const firstName = localStorage.getItem("firstName")
     const lastName = localStorage.getItem("lastName")
@@ -22,8 +22,7 @@ function EditUser () {
     const navigate = useNavigate()
 
     useEffect(() => {
-        const token = localStorage.getItem("token")
-        if (!token) {
+        if (!localStorage.getItem("token")) {
           navigate("/Sign-In")
           return
         }
@@ -68,11 +67,11 @@ function EditUser () {
     return (
         <>
             <Header />
-            <div className={styles.editUser}>
-                <section className={styles.editUser__header}>
-                    <h1 className={styles.editUser__title}>Welcome back</h1>
-                    <form className={styles.editUser__form} onSubmit={handleSave}>
-                        <div className={styles.editUser__input}>
+            <div className={styles.profile}>
+                <section className={styles.profile__header}>
+                    <h1 className={styles.profile__title}>Welcome back</h1>
+                    <form className={styles.profile__form} onSubmit={handleSave}>
+                        <div className={styles.profile__input}>
                             <input 
                                 type="text" 
                                 value={newFirstName}
@@ -84,7 +83,7 @@ function EditUser () {
                                 onChange={(e) => setNewLastName(e.target.value)}
                             />
                         </div>
-                        <div className={styles.editUser__btn}>
+                        <div className={styles.profile__btn}>
                             <button 
                                 type='submit' 
                                 className={styles.signIn__btnSave}
@@ -109,4 +108,4 @@ function EditUser () {
     )
 }
 
-export default EditUser
+export default Profile

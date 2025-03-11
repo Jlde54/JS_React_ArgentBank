@@ -20,8 +20,7 @@ function User () {
     const navigate = useNavigate()
 
     useEffect(() => {
-        const token = localStorage.getItem("token")
-        if (!token) {
+        if (!localStorage.getItem("token")) {
             navigate("/Sign-In")
             return;
         }
@@ -33,7 +32,7 @@ function User () {
             <div className={styles.user}>
                 <section className={styles.user__header}>
                     <h1 className={styles.user__title}>Welcome back<br />{firstName} {lastName}</h1>
-                    <Link className={styles.user__editButton} to={'/EditUser'}>Edit name</Link>
+                    <Link className={styles.user__editButton} to={'/Profile'}>Edit name</Link>
                 </section>
                 {DATA.map((item) => (
                     <Account key={item.title} item={item} />

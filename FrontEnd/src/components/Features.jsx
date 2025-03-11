@@ -29,12 +29,12 @@ function Features () {
         }
     ]
     return (
-        <div className={styles.features}>
+        <section className={styles.features}>
+            <h2 className="sr-only">Features</h2>
             {FEATURES_DATA.map((feature) => (
                 <Feature key={feature.title} feature={feature}/>
             ))}
-            
-        </div>
+        </section>
     )
 }
 

@@ -1,4 +1,3 @@
-import {Link} from 'react-router-dom'
 import styles from '../styles/Account.module.scss'
 
 /**
@@ -9,19 +8,19 @@ import styles from '../styles/Account.module.scss'
  */
 function Account ({item}) {
     return (
-        
-        <section className={styles.account}>
-                    <div className={styles.account__content}>
-                        <h3 className={styles.account__title}>{item.title}</h3>
-                        <p className={styles.account__amount}>{item.amount}</p>
-                        <p className={styles.account__description}>{item.desc}</p>
-                    </div>
-                    <div className={styles.account__button}>
-                        <button className={styles.account__transactionButton}>{item.btn}</button>
-                    </div>
-        </section>
-        
-        
+        <>
+            <h2 className="sr-only">Accounts</h2>
+            <section className={styles.account}>
+                <div className={styles.account__content}>
+                    <h3 className={styles.account__title}>{item.title}</h3>
+                    <p className={styles.account__amount}>{item.amount}</p>
+                    <p className={styles.account__description}>{item.desc}</p>
+                </div>
+                <div className={styles.account__button}>
+                    <button className={styles.account__transactionButton}>{item.btn}</button>
+                </div>
+            </section>
+        </>
     )
 }
 

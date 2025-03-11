@@ -36,7 +36,7 @@ function Header () {
                             <p>Sign In</p>
                         </Link>
                     }
-                    {(currentPage.pathname === "/User" || currentPage.pathname === "/EditUser") &&
+                    {(currentPage.pathname === "/User" || currentPage.pathname === "/Profile") &&
                         <>
                             <Link 
                                 className={styles.header__link} 

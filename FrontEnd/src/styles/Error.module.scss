@@ -1,0 +1,46 @@
+@import './-variables.scss';
+@import './-mixins.scss';
+
+.error {
+    color: $bg-green-color;
+    font-weight: 500;
+    text-align: center;
+    margin-inline: 50px;
+    &__404 {
+        @include fontStyle (288px, 700);
+        margin: 100px 0;
+    }
+    &__msg {
+        @include fontStyle (36px, 500);
+        text-decoration: none;
+        margin-bottom: 100px;
+    }
+    &__nav {
+        margin-bottom: 100px;
+    }
+    &__link {
+        color: $black-color;
+        @include fontStyle (18px, 500);
+        
+    }
+}
+
+// Media queries
+
+@media screen and (max-width: 768px) {
+
+}
+
+@media screen and (max-width: 576px) {
+    .error {
+        &__404 {
+            @include fontStyle (96px, 700);
+        }
+        &__msg {
+            @include fontStyle (18px, 500);
+        }
+        &__link {
+            @include fontStyle (14px, 500);
+        }
+    }
+}
