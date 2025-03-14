@@ -26,9 +26,9 @@
         input {
             @include fontStyle (1.1rem, 500);
             padding: 0.7rem;
-            border: solid 1px #b9b7b7;
+            border: solid 1px $grey-color;
             border-radius: 5px;
-            color: #b9b7b7;
+            color: $grey-color;
             width: 45%;
         }
     }
@@ -38,11 +38,12 @@
         button {
             @include fontStyle (1.1rem, 500);
             padding: 0.7rem;
-            border: solid 1px #7921f4;
+            border: solid 1px $bg-purple-color;
             border-radius: 5px;
-            color: #7921f4;
+            color: $bg-purple-color;
             background-color: $white-color;
             width: 100px;
+            cursor: pointer;
         }
     }
     &__editButton {
