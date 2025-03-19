@@ -1,4 +1,4 @@
-import {Link, useLocation} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import styles from '../styles/Header.module.scss'
 import logo from '../assets/argentBankLogo.png'
 import PropTypes from 'prop-types'
@@ -13,14 +13,11 @@ import PropTypes from 'prop-types'
  */
 function Header ({user, setUser}) {
 
-    const currentPage = useLocation();
-
     function handleLogout () {
         setUser({
             token: null,
             firstName: "",
             lastName: "",
-            // rememberedEmail: user.rememberedEmail
         })
     }
 
@@ -30,19 +27,19 @@ function Header ({user, setUser}) {
                 <div className={styles.header__logo}>
                     <Link 
                         to={'/'} 
-                        onClick={handleLogout}>
+                    >
                         <img className={styles.header__img} src={logo} alt="Argent Bank Logo"/>
                         <h1 className="sr-only">Argent Bank</h1>
                     </Link>
                 </div>
                 <div className={styles.header__signIn}>
-                    {(currentPage.pathname === "/" || currentPage.pathname === "/Sign-In") &&
+                    {!user.token &&
                         <Link className={styles.header__link} to={'/Sign-In'}>
                             <i className="fa fa-user-circle"></i>
                             <p>Sign In</p>
                         </Link>
                     }
-                    {(currentPage.pathname === "/User" || currentPage.pathname === "/Profile") &&
+                    {user.token &&
                         <>
                             <Link 
                                 className={styles.header__link} 
@@ -52,7 +49,7 @@ function Header ({user, setUser}) {
                             </Link>
                             <Link 
                                 className={styles.header__link} 
-                                to={'/'}
+                                to={'/Sign-In'}
                                 onClick={handleLogout}>
                                 <i className="fa fa-sign-out"></i>
                                 <p>Sign Out</p>
