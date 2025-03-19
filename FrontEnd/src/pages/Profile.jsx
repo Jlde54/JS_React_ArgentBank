@@ -4,39 +4,38 @@ import styles from '../styles/Profile.module.scss'
 import Account from '../components/Account.jsx'
 import Header from '../components/Header.jsx'
 import DATA from '../data/dataAccount.js'
+import PropTypes from 'prop-types'
 
 /**
- *Profile Component - Displays the homepage
+ * Profile Component - Displays the homepage
  *
  * @component
+ * @param {Object} - user - user data
+ * @param {function} - setUser - update user state
  * @returns {JSX.Element} - rendered Profile component
  */
-function Profile () {
+function Profile ({user, setUser}) {
 
-    const firstName = localStorage.getItem("firstName")
-    const lastName = localStorage.getItem("lastName")
-
-    const [newFirstName, setNewFirstName] = useState(firstName)
-    const [newLastName, setNewLastName] = useState(lastName)
+    const [newFirstName, setNewFirstName] = useState(user.firstName)
+    const [newLastName, setNewLastName] = useState(user.lastName)
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!localStorage.getItem("token")) {
+        if (!user.token) {
           navigate("/Sign-In")
           return
         }
-      }, [navigate])
+      }, [user.token, navigate])
 
     async function handleSave (e) {
         e.preventDefault()
-        const token = localStorage.getItem("token")
         try {
             const response = await fetch("http://localhost:3001/api/v1/user/profile",
             {
                 method: "PUT",
                 headers: {
-                    "Authorization": `Bearer ${token}`, // Envoie le token dans le header
+                    "Authorization": `Bearer ${user.token}`, // Envoie le token dans le header
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
@@ -47,8 +46,12 @@ function Profile () {
 
             if (response.ok) {
                 console.log("Informations mises à jour avec succès !")
-                localStorage.setItem("firstName", newFirstName)
-                localStorage.setItem("lastName", newLastName)
+                setUser(prevUser => ({
+                    ...prevUser,
+                    firstName: newFirstName,
+                    lastName: newLastName,
+                }))
+
                 navigate("/User")
             } else {
                 console.log("Erreur lors de la mise à jour des informations.");
@@ -66,7 +69,7 @@ function Profile () {
 
     return (
         <>
-            <Header />
+            <Header user={user} setUser={setUser} />
             <div className={styles.profile}>
                 <section className={styles.profile__header}>
                     <h1 className={styles.profile__title}>Welcome back</h1>
@@ -74,13 +77,19 @@ function Profile () {
                         <div className={styles.profile__input}>
                             <input 
                                 type="text" 
+                                id="firstName"
+                                name="firstName"
                                 value={newFirstName}
                                 onChange={(e) => setNewFirstName(e.target.value)}
+                                autoComplete="given-name"
                             />
                             <input 
                                 type="text" 
+                                id="lastName"
+                                name="lastName"
                                 value={newLastName} 
                                 onChange={(e) => setNewLastName(e.target.value)}
+                                autoComplete="family-name"
                             />
                         </div>
                         <div className={styles.profile__btn}>
@@ -106,6 +115,15 @@ function Profile () {
             </div>
         </>
     )
+}
+
+Profile.propTypes = {
+    user: PropTypes.shape({
+        token: PropTypes.string,
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+    }),
+    setUser: PropTypes.func
 }
 
 export default Profile

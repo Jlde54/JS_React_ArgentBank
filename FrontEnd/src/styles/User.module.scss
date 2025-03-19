@@ -9,7 +9,7 @@
         @include fontStyle (32px, 700);
         @include flexContainer(column, center, center);
         color: $white-color;
-        max-height: 300px;
+        max-height: 400px;
         padding-bottom: 2rem;
         text-align: center;
         h1 {

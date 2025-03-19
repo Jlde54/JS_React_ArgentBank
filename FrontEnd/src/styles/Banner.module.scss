@@ -41,6 +41,7 @@
             left: 50%;
             transform: translate(-62%, -50%);
             width: 200px;
+            padding: 1rem;
         }
         &__subtitle {
             @include fontStyle(1rem, 700);

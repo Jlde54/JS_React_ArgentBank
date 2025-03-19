@@ -1,18 +1,29 @@
 import {Link} from 'react-router-dom'
 import styles from '../styles/Error.module.scss'
 import Header from '../components/Header.jsx'
+import PropTypes from 'prop-types'
 
-function Error() {
+/**
+ * Error Component - Displays the errorpage
+ *
+ * @component
+ * @param {Object} - user - user data
+ * @param {function} - setUser - update user state
+ * @returns {JSX.Element} - rendered Error component
+ */
+function Error({user, setUser}) {
 
     function handleLogout () {
-        localStorage.removeItem("token")
-        localStorage.removeItem("firstName")
-        localStorage.removeItem("lastName")
+        setUser({
+            token: null,
+            firstName: "",
+            lastName: "",
+        })
     }
 
     return (
         <>
-            <Header />
+            <Header user={user} setUser={setUser} />
             <div className={styles.error}>
                 <p className={styles.error__404}>404</p>
                 <p className={styles.error__msg}>La page que vous demandez n&apos;existe pas</p>
@@ -27,6 +38,15 @@ function Error() {
             </div>
         </>
     )
+}
+
+Error.propTypes = {
+    user: PropTypes.shape({
+        token: PropTypes.string,
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+    }),
+    setUser: PropTypes.func
 }
 
 export default Error

@@ -2,14 +2,17 @@ import styles from '../styles/Sign-In.module.scss'
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
 import Header from '../components/Header.jsx'
+import PropTypes from 'prop-types'
 
 /**
  * Sign_In Component - Displays the homepage
  *
  * @component
+ * @param {Object} - user - user data
+ * @param {function} - setUser - update user state
  * @returns {JSX.Element} - rendered Sign_In component
  */
-function Sign_In () {
+function Sign_In ({user, setUser}) {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -38,7 +41,10 @@ function Sign_In () {
             const dataLogin = await resLogin.json()
             if (!resLogin.ok) throw new Error(dataLogin.message || "Identifiants invalides")
 
-            localStorage.setItem("token", dataLogin.body.token)
+            setUser(prevUser => ({
+                ...prevUser,
+                token: dataLogin.body.token,
+            }))
 
             try {
                 const resProfile = await fetch("http://localhost:3001/api/v1/user/profile", {
@@ -51,9 +57,12 @@ function Sign_In () {
 
                 const dataProfile = await resProfile.json()
                 if (!resProfile.ok) throw new Error(dataProfile.message || "Erreur de récupération")
-                
-                localStorage.setItem("firstName", dataProfile.body.firstName)
-                localStorage.setItem("lastName", dataProfile.body.lastName)
+
+                setUser(prevUser => ({
+                    ...prevUser,
+                    firstName: dataProfile.body.firstName,
+                    lastName: dataProfile.body.lastName,
+                }))
 
             } catch (error) {
                 console.error(error)
@@ -74,7 +83,7 @@ function Sign_In () {
     }
     return (
         <>
-            <Header />
+            <Header user={user} setUser={setUser} />
             <div className={styles.signIn}>
                 <section className={styles.signIn__content}>
                     <i className="fa fa-user-circle sign-in-icon"></i>
@@ -87,7 +96,8 @@ function Sign_In () {
                                 id="username" 
                                 value={email} 
                                 onChange={(e) => setEmail(e.target.value)}
-                                required 
+                                required
+                                autoComplete='email'
                             />
                         </div>
                         <div className={styles.signIn__inputWrapper}>
@@ -97,7 +107,8 @@ function Sign_In () {
                                 id="password" 
                                 value={password} 
                                 onChange={(e) => setPassword(e.target.value)}
-                                required 
+                                required
+                                autoComplete='current-password'
                             />
                         </div>
                         <div className={styles.signIn__inputRemember}>
@@ -116,6 +127,15 @@ function Sign_In () {
             </div>
         </>
     )
+}
+
+Sign_In.propTypes = {
+    user: PropTypes.shape({
+        token: PropTypes.string,
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+    }),
+    setUser: PropTypes.func
 }
 
 export default Sign_In

@@ -1,21 +1,27 @@
 import {Link, useLocation} from 'react-router-dom'
 import styles from '../styles/Header.module.scss'
 import logo from '../assets/argentBankLogo.png'
+import PropTypes from 'prop-types'
 
 /**
  * Header Component - Displays the header
  *
  * @component
+ * @param {Object} - user - user data
+ * @param {function} - setUser - update user state
  * @returns {JSX.Element} - rendered Header component
  */
-function Header () {
+function Header ({user, setUser}) {
+
     const currentPage = useLocation();
-    const firstName = localStorage.getItem("firstName")
 
     function handleLogout () {
-        localStorage.removeItem("token")
-        localStorage.removeItem("firstName")
-        localStorage.removeItem("lastName")
+        setUser({
+            token: null,
+            firstName: "",
+            lastName: "",
+            // rememberedEmail: user.rememberedEmail
+        })
     }
 
     return (
@@ -30,8 +36,8 @@ function Header () {
                     </Link>
                 </div>
                 <div className={styles.header__signIn}>
-                    {(currentPage.pathname === "/" || currentPage.pathname === "/sign-in") &&
-                        <Link className={styles.header__link} to={'/sign-in'}>
+                    {(currentPage.pathname === "/" || currentPage.pathname === "/Sign-In") &&
+                        <Link className={styles.header__link} to={'/Sign-In'}>
                             <i className="fa fa-user-circle"></i>
                             <p>Sign In</p>
                         </Link>
@@ -42,7 +48,7 @@ function Header () {
                                 className={styles.header__link} 
                                 to={'/User'}>
                                 <i className="fa fa-user-circle"></i>
-                                <p>{firstName}</p>
+                                <p>{user.firstName}</p>
                             </Link>
                             <Link 
                                 className={styles.header__link} 
@@ -57,6 +63,15 @@ function Header () {
             </nav>
         </div>
     )
+}
+
+Header.propTypes = {
+    user: PropTypes.shape({
+        token: PropTypes.string,
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+    }),
+    setUser: PropTypes.func
 }
 
 export default Header

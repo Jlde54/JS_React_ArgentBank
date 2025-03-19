@@ -5,33 +5,33 @@ import styles from '../styles/User.module.scss'
 import Account from '../components/Account.jsx'
 import Header from '../components/Header.jsx'
 import DATA from '../data/dataAccount.js'
+import PropTypes from 'prop-types'
 
 /**
  * User Component - Displays the homepage
  *
  * @component
+ * @param {Object} - user - user data
+ * @param {function} - setUser - update user state
  * @returns {JSX.Element} - rendered User component
  */
-function User () {
-
-    const firstName = localStorage.getItem("firstName")
-    const lastName = localStorage.getItem("lastName")
+function User ({user, setUser}) {
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!localStorage.getItem("token")) {
+            if (!user.token) {
             navigate("/Sign-In")
             return;
         }
-    }, [navigate]);
+    }, [user.token, navigate]);
 
     return (
         <>
-            <Header />
+            <Header user={user} setUser={setUser} />
             <div className={styles.user}>
                 <section className={styles.user__header}>
-                    <h1 className={styles.user__title}>Welcome back<br />{firstName} {lastName}</h1>
+                    <h1 className={styles.user__title}>Welcome back<br />{user.firstName} {user.Link}</h1>
                     <Link className={styles.user__editButton} to={'/Profile'}>Edit name</Link>
                 </section>
                 {DATA.map((item) => (
@@ -40,6 +40,15 @@ function User () {
             </div>
         </>
     )
+}
+
+User.propTypes = {
+    user: PropTypes.shape({
+        token: PropTypes.string,
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+    }),
+    setUser: PropTypes.func
 }
 
 export default User
