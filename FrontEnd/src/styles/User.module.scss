@@ -12,9 +12,9 @@
         max-height: 400px;
         padding-bottom: 2rem;
         text-align: center;
-        h1 {
-            @include fontStyle (32px, 700);
-        }
+    }
+    &__title {
+        @include fontStyle (32px, 700);
     }
     &__editButton {
         @include flexContainer(column, space-between, center);

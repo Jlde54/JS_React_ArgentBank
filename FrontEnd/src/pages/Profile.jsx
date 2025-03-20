@@ -95,13 +95,13 @@ function Profile ({user, setUser}) {
                         <div className={styles.profile__btn}>
                             <button 
                                 type='submit' 
-                                className={styles.signIn__btnSave}
+                                // className={styles.signIn__btnSave}
                             >
                                 Save
                             </button>
                             <button 
                                 type='button' 
-                                className={styles.signIn__btnCancel}
+                                // className={styles.signIn__btnCancel}
                                 onClick={handleCancel}
                             >
                                 Cancel

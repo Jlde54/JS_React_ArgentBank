@@ -1,4 +1,3 @@
-import {useLocation} from 'react-router-dom'
 import styles from '../styles/Account.module.scss'
 
 /**
@@ -8,11 +7,6 @@ import styles from '../styles/Account.module.scss'
  * @returns {JSX.Element} - rendered Account component
  */
 function Account ({item}) {
-    const currentPage = useLocation()
-    const pageProfile = currentPage.pathname === "/Profile"
-        ? styles.account__profile
-        : ""
-
 
     return (
         <>
@@ -24,7 +18,7 @@ function Account ({item}) {
                     <p className={styles.account__description}>{item.desc}</p>
                 </div>
                 <div className={styles.account__button}>
-                    <button className={`${styles.account__transactionButton} ${pageProfile}`}>{item.btn}</button>
+                    <button className={styles.account__transactionButton }>{item.btn}</button>
                 </div>
             </section>
         </>

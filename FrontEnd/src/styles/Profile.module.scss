@@ -4,11 +4,11 @@
 .profile {
     width: 100%;
     height : 945px;
-    background-color: $bg-grey-color;
+    background-color: $bg-blue-color;
     &__header {
         @include fontStyle (32px, 700);
         @include flexContainer(column, center, center);
-        color: $black-color;
+        color: $white-color;
         max-height: 400px;
         padding-bottom: 2rem;
         text-align: center;
@@ -26,9 +26,7 @@
         input {
             @include fontStyle (1.1rem, 500);
             padding: 0.7rem;
-            border: solid 1px $grey-color;
             border-radius: 5px;
-            color: $grey-color;
             width: 45%;
         }
     }
@@ -38,24 +36,12 @@
         button {
             @include fontStyle (1.1rem, 500);
             padding: 0.7rem;
-            border: solid 1px $bg-purple-color;
             border-radius: 5px;
-            color: $bg-purple-color;
-            background-color: $white-color;
+            color: $white-color;
+            background-color: $bg-green-color;
             width: 100px;
             cursor: pointer;
         }
-    }
-    &__editButton {
-        @include flexContainer(column, space-between, center);
-        @include fontStyle(1.1rem, 700);
-        background-color: $bg-green-color;
-        border-color: $bg-green-color;
-        color: $white-color;
-        padding: 8px;
-        margin-top: 1rem;
-        max-width: 87px;
-        text-decoration: none;
     }
 }
 
