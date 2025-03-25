@@ -10,7 +10,7 @@
         @include flexContainer(column, center, center);
         color: $white-color;
         max-height: 400px;
-        padding-bottom: 2rem;
+        padding-bottom: 0.5rem;
         text-align: center;
     }
     &__title {
@@ -34,14 +34,19 @@
         @include flexContainer(row, center, center);
         gap: 20px;
         button {
-            @include fontStyle (1.1rem, 500);
-            padding: 0.7rem;
+            @include fontStyle (1.1rem, 700);
+            padding: 0.4rem;
             border-radius: 5px;
             color: $white-color;
             background-color: $bg-green-color;
             width: 100px;
             cursor: pointer;
         }
+    }
+    &__msg {
+        color: red;
+        font-size: 0.9rem;
+        min-height: 1.1rem;
     }
 }
 

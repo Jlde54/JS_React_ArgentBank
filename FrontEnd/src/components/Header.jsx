@@ -1,7 +1,9 @@
 import {Link} from 'react-router-dom'
 import styles from '../styles/Header.module.scss'
 import logo from '../assets/argentBankLogo.png'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'       // New
+import { logout } from '../userSlice'       // New
 
 /**
  * Header Component - Displays the header
@@ -11,14 +13,20 @@ import PropTypes from 'prop-types'
  * @param {function} - setUser - update user state
  * @returns {JSX.Element} - rendered Header component
  */
-function Header ({user, setUser}) {
+// function Header ({user, setUser}) {
+function Header () {                // New
+
+    const dispatch = useDispatch()
+    
+    const user = useSelector((state) => state.user)
 
     function handleLogout () {
-        setUser({
-            token: null,
-            firstName: "",
-            lastName: "",
-        })
+        // setUser({
+        //     token: null,
+        //     firstName: "",
+        //     lastName: "",
+        // })
+        dispatch(logout())
     }
 
     return (
@@ -62,13 +70,13 @@ function Header ({user, setUser}) {
     )
 }
 
-Header.propTypes = {
-    user: PropTypes.shape({
-        token: PropTypes.string,
-        firstName: PropTypes.string,
-        lastName: PropTypes.string,
-    }),
-    setUser: PropTypes.func
-}
+// Header.propTypes = {
+//     user: PropTypes.shape({
+//         token: PropTypes.string,
+//         firstName: PropTypes.string,
+//         lastName: PropTypes.string,
+//     }),
+//     setUser: PropTypes.func
+// }
 
 export default Header

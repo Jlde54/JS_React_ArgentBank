@@ -2,7 +2,9 @@ import styles from '../styles/Sign-In.module.scss'
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
 import Header from '../components/Header.jsx'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'   // New
+import { login } from '../userSlice.js'     // New
 
 /**
  * Sign_In Component - Displays the homepage
@@ -12,12 +14,16 @@ import PropTypes from 'prop-types'
  * @param {function} - setUser - update user state
  * @returns {JSX.Element} - rendered Sign_In component
  */
-function Sign_In ({user, setUser}) {
+// function Sign_In ({user, setUser}) {
+function Sign_In () {                       // New
+
+    const dispatch = useDispatch()                      // New
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [rememberMe, setRememberMe] = useState(false)
     const [error, setError] = useState("")
+    const [isLoading, setIsLoading] = useState(false)       // New
 
     const navigate = useNavigate()
 
@@ -32,6 +38,7 @@ function Sign_In ({user, setUser}) {
     async function handleSubmit (e) {
         e.preventDefault()
         setError("")
+        setIsLoading(true)          // New
         try {
             const resLogin = await fetch("http://localhost:3001/api/v1/user/login", {
                 method: "POST",
@@ -41,10 +48,10 @@ function Sign_In ({user, setUser}) {
             const dataLogin = await resLogin.json()
             if (!resLogin.ok) throw new Error(dataLogin.message || "Identifiants invalides")
 
-            setUser(prevUser => ({
-                ...prevUser,
-                token: dataLogin.body.token,
-            }))
+            // setUser(prevUser => ({
+            //     ...prevUser,
+            //     token: dataLogin.body.token,
+            // }))
 
             try {
                 const resProfile = await fetch("http://localhost:3001/api/v1/user/profile", {
@@ -58,11 +65,16 @@ function Sign_In ({user, setUser}) {
                 const dataProfile = await resProfile.json()
                 if (!resProfile.ok) throw new Error(dataProfile.message || "Erreur de récupération")
 
-                setUser(prevUser => ({
-                    ...prevUser,
-                    firstName: dataProfile.body.firstName,
-                    lastName: dataProfile.body.lastName,
-                }))
+                // setUser(prevUser => ({
+                //     ...prevUser,
+                //     firstName: dataProfile.body.firstName,
+                //     lastName: dataProfile.body.lastName,
+                // }))
+                dispatch(login({                            // New
+                    token: dataLogin.body.token,            // New
+                    firstName: dataProfile.body.firstName,  // New
+                    lastName: dataProfile.body.lastName,    // New
+                }))                                         // New
 
             } catch (error) {
                 console.error(error)
@@ -79,11 +91,14 @@ function Sign_In ({user, setUser}) {
 
         } catch (error) {
             setError(error.message)
+        } finally {                     // New
+            setIsLoading(false)         // New
         }
     }
     return (
         <>
-            <Header user={user} setUser={setUser} />
+            {/* <Header user={user} setUser={setUser} /> */}
+            <Header />
             <div className={styles.signIn}>
                 <section className={styles.signIn__content}>
                     <i className="fa fa-user-circle sign-in-icon"></i>
@@ -122,6 +137,7 @@ function Sign_In ({user, setUser}) {
                         </div>
                         <button type='submit' className={styles.signIn__button}>Sign In</button>
                     </form>
+                    {isLoading && <p style={{ color: "red", margin: 0 }}>Loading data ...</p>}
                     {error && <p style={{ color: "red", margin: 0 }}>{error}</p>}
                 </section>
             </div>
@@ -129,13 +145,13 @@ function Sign_In ({user, setUser}) {
     )
 }
 
-Sign_In.propTypes = {
-    user: PropTypes.shape({
-        token: PropTypes.string,
-        firstName: PropTypes.string,
-        lastName: PropTypes.string,
-    }),
-    setUser: PropTypes.func
-}
+// Sign_In.propTypes = {
+//     user: PropTypes.shape({
+//         token: PropTypes.string,
+//         firstName: PropTypes.string,
+//         lastName: PropTypes.string,
+//     }),
+//     setUser: PropTypes.func
+// }
 
 export default Sign_In
