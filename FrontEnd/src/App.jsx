@@ -5,11 +5,11 @@ import User from './pages/User.jsx'
 import Profile from './pages/Profile.jsx'
 import Error from './pages/Error.jsx'
 import Footer from './components/Footer.jsx'
+import PrivateRoute from './PrivateRoute.jsx'
 import './styles/App.module.scss'
-// import { useState } from 'react'
 
 function App() {
-    
+
   const ROUTES = {
     HOME: '/',
     SIGNIN: '/Sign-In',
@@ -18,25 +18,14 @@ function App() {
     ERROR: '*'
   }
 
-  // const [user, setUser] = useState ({
-  //   token: null,
-  //   firstName: "",
-  //   lastName: "",
-  // })
-
   return (
     <>
       <BrowserRouter>
           <Routes>
-            {/* <Route path={ROUTES.HOME} element={<Home user={user} setUser={setUser} />}/>
-            <Route path={ROUTES.SIGNIN} element={<Sign_In user={user} setUser={setUser}/>}/>
-            <Route path={ROUTES.USER} element={<User user={user} setUser={setUser}/>}/>
-            <Route path={ROUTES.PROFILE} element={<Profile user={user} setUser={setUser}/>}/>
-            <Route path={ROUTES.ERROR} element={<Error user={user} setUser={setUser}/>} /> */}
             <Route path={ROUTES.HOME} element={<Home />}/>
             <Route path={ROUTES.SIGNIN} element={<Sign_In />}/>
-            <Route path={ROUTES.USER} element={<User />}/>
-            <Route path={ROUTES.PROFILE} element={<Profile />}/>
+            <Route path={ROUTES.USER} element={<PrivateRoute><User /></PrivateRoute>}/>
+            <Route path={ROUTES.PROFILE} element={<PrivateRoute><Profile /></PrivateRoute>}/>
             <Route path={ROUTES.ERROR} element={<Error />} />
           </Routes>
         <Footer />

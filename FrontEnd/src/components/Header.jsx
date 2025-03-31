@@ -1,9 +1,8 @@
-import {Link} from 'react-router-dom'
+import {Link, Navigate, useNavigate} from 'react-router-dom'
 import styles from '../styles/Header.module.scss'
 import logo from '../assets/argentBankLogo.png'
-// import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'       // New
-import { logout } from '../userSlice'       // New
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../userSlice'
 
 /**
  * Header Component - Displays the header
@@ -13,20 +12,16 @@ import { logout } from '../userSlice'       // New
  * @param {function} - setUser - update user state
  * @returns {JSX.Element} - rendered Header component
  */
-// function Header ({user, setUser}) {
-function Header () {                // New
+
+function Header () {
 
     const dispatch = useDispatch()
-    
+    const navigate = useNavigate()
     const user = useSelector((state) => state.user)
 
     function handleLogout () {
-        // setUser({
-        //     token: null,
-        //     firstName: "",
-        //     lastName: "",
-        // })
         dispatch(logout())
+        navigate('/')
     }
 
     return (
@@ -55,13 +50,12 @@ function Header () {                // New
                                 <i className="fa fa-user-circle"></i>
                                 <p>{user.firstName}</p>
                             </Link>
-                            <Link 
+                            <button 
                                 className={styles.header__link} 
-                                to={'/Sign-In'}
                                 onClick={handleLogout}>
                                 <i className="fa fa-sign-out"></i>
                                 <p>Sign Out</p>
-                            </Link>
+                            </button>
                         </>
                     }
                 </div>
@@ -69,14 +63,5 @@ function Header () {                // New
         </div>
     )
 }
-
-// Header.propTypes = {
-//     user: PropTypes.shape({
-//         token: PropTypes.string,
-//         firstName: PropTypes.string,
-//         lastName: PropTypes.string,
-//     }),
-//     setUser: PropTypes.func
-// }
 
 export default Header

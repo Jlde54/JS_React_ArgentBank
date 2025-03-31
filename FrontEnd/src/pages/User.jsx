@@ -1,12 +1,9 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import {Link} from 'react-router-dom'
 import styles from '../styles/User.module.scss'
 import Account from '../components/Account.jsx'
 import Header from '../components/Header.jsx'
 import DATA from '../data/dataAccount.js'
-import { useSelector } from 'react-redux'   // New
-// import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 
 /**
  * User Component - Displays the homepage
@@ -16,22 +13,13 @@ import { useSelector } from 'react-redux'   // New
  * @param {function} - setUser - update user state
  * @returns {JSX.Element} - rendered User component
  */
-// function User ({user, setUser}) {
+
 function User () {
 
-    const navigate = useNavigate()
-    const user = useSelector((state) => state.user)     // New
-
-    useEffect(() => {
-            if (!user.token) {
-            navigate("/Sign-In")
-            return;
-        }
-    }, [user.token, navigate]);
+    const user = useSelector((state) => state.user)
 
     return (
         <>
-            {/* <Header user={user} setUser={setUser} /> */}
             <Header />
             <div className={styles.user}>
                 <section className={styles.user__header}>
@@ -45,14 +33,5 @@ function User () {
         </>
     )
 }
-
-// User.propTypes = {
-//     user: PropTypes.shape({
-//         token: PropTypes.string,
-//         firstName: PropTypes.string,
-//         lastName: PropTypes.string,
-//     }),
-//     setUser: PropTypes.func
-// }
 
 export default User

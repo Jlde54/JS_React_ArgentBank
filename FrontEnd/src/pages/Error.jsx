@@ -1,9 +1,8 @@
 import {Link} from 'react-router-dom'
 import styles from '../styles/Error.module.scss'
 import Header from '../components/Header.jsx'
-import { useDispatch } from 'react-redux'       // New
-import { logout } from '../userSlice.js'        // New
-// import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
+import { logout } from '../userSlice.js'
 
 /**
  * Error Component - Displays the errorpage
@@ -13,23 +12,17 @@ import { logout } from '../userSlice.js'        // New
  * @param {function} - setUser - update user state
  * @returns {JSX.Element} - rendered Error component
  */
-// function Error({user, setUser}) {
-function Error() {                      // New
 
-    const dispatch = useDispatch()      // New
+function Error() {
+
+    const dispatch = useDispatch()
 
     function handleLogout () {
-        // setUser({
-        //     token: null,
-        //     firstName: "",
-        //     lastName: "",
-        // })
-        dispatch(logout())              // New
+        dispatch(logout())
     }
 
     return (
         <>
-            {/* <Header user={user} setUser={setUser} /> */}
             <Header />
             <div className={styles.error}>
                 <p className={styles.error__404}>404</p>
@@ -46,14 +39,5 @@ function Error() {                      // New
         </>
     )
 }
-
-// Error.propTypes = {
-//     user: PropTypes.shape({
-//         token: PropTypes.string,
-//         firstName: PropTypes.string,
-//         lastName: PropTypes.string,
-//     }),
-//     setUser: PropTypes.func
-// }
 
 export default Error
