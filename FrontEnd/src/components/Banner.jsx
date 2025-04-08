@@ -1,5 +1,5 @@
 import styles from '../styles/Banner.module.scss'
-import bankTree from '../assets/bank-tree.jpeg'
+import bankTree from '../assets/bank-tree.webp'
 
 /**
  * Banner Component - Displays the banner

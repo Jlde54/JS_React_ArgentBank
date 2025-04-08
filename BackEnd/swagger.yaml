@@ -9,6 +9,7 @@ basePath: /api/v1
 schemes:
   - http
 paths:
+
   /user/login:
     post:
       tags:
@@ -33,6 +34,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+
   /user/signup:
     post:
       tags:
@@ -57,6 +59,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+
   /user/profile:
     post:
       security:
@@ -70,6 +73,7 @@ paths:
           name: Authorization
           description: Attach Bearer JWT token
           required: true
+          type: string
       produces:
         - application/json
       responses:
@@ -93,6 +97,7 @@ paths:
           name: Authorization
           description: Attach Bearer JWT token
           required: true
+          type: string
         - in: body
           name: body
           description: Update user profile attributes
@@ -110,12 +115,154 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+
+  /accounts/{accountId}/transactions:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions
+      summary: Get current month transactions for a specific account
+      description: Retrieves all transactions made during the current month for the specified account.
+      parameters:
+        - in: path
+          name: accountId
+          required: true
+          type: string
+          description: Unique account identifier.
+        - in: body
+          name: body
+          required: false
+          schema:
+            type: object
+            properties:
+              dateRange:
+                type: object
+                properties:
+                  startDate:
+                    type: string
+                    format: date
+                    description: Start date to filter transactions.
+                  endDate:
+                    type: string
+                    format: date
+                    description: End date to filter transactions.
+      responses:
+        200:
+          description: Transaction list successfully retrieved.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Transaction'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authorized.
+        500:
+          description: Internal Server Error.
+
+  /transactions/{transactionId}:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions
+      summary: Get details of a specific transaction
+      description: Retrieves detailed information for a given transaction.
+      parameters:
+        - in: path
+          name: transactionId
+          required: true
+          type: string
+          description: Unique transaction identifier.
+      responses:
+        200:
+          description: Transaction details successfully retrieved.
+          schema:
+            $ref: '#/definitions/Transaction'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authorized.
+        404:
+          description: Transaction not found.
+        500:
+          description: Internal Server Error.
+
+  /transactions/{transactionId}/category:
+    patch:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions
+      summary: Update the transaction category
+      description: Allows you to change the category associated with a specific transaction.
+      parameters:
+        - in: path
+          name: transactionId
+          required: true
+          type: string
+          description: Unique identifier of the transaction.
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateTransactionCategory'
+      responses:
+        200:
+          description: Category updated successfully.
+          schema:
+            $ref: '#/definitions/Transaction'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authorized.
+        404:
+          description: Transaction not found.
+        500:
+          description: Internal Server Error.
+
+  /transactions/{transactionId}/note:
+    patch:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions
+      summary: Update the transaction note
+      description: Allows you to change the note associated with a specific transaction.
+      parameters:
+        - in: path
+          name: transactionId
+          required: true
+          type: string
+          description: Unique identifier of the transaction.
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateTransactionNote'
+      responses:
+        200:
+          description: Note updated successfully.
+          schema:
+            $ref: '#/definitions/Transaction'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authorized.
+        404:
+          description: Transaction not found.
+        500:
+          description: Internal Server Error.
+
 securityDefinitions:
   Bearer:
     type: apiKey
     name: Authorization
     in: header
+
 definitions:
+
   User:
     properties:
       email:
@@ -130,6 +277,7 @@ definitions:
       lastName:
         type: string
         description: user last name
+
   Login:
     properties:
       email:
@@ -138,6 +286,7 @@ definitions:
       password:
         type: string
         description: user password
+
   ApiResponse:
     type: object
     properties:
@@ -152,11 +301,13 @@ definitions:
             type: string
           email:
             type: string
+
   LoginResponse:
     type: object
     properties:
       token:
         type: string
+
   UserProfile:
     type: object
     properties:
@@ -164,3 +315,63 @@ definitions:
         type: string
       lastName:
         type: string
+
+  Transaction:
+    type: object
+    properties:
+      transactionid:
+        type: string
+        description: Transaction id.
+        example: "B-123456"
+      accountId:
+        type: string
+        description: Account id.
+        example: "x8349"
+      date:
+        type: string
+        format: date
+        description: Date.
+        example: "2020-06-20"
+      description:
+        type: string
+        description: Description.
+        example: "Golden Sun Bakery"
+      amount:
+        type: number
+        format: double
+        description: Amount.
+        example: 5.00
+      currency:
+        type: string
+        description: Currency.
+        example: "$"
+      transactionType:
+        type: string
+        description: Transaction type.
+        example: "Debit"
+      category:
+        type: string
+        description: Category.
+        example: "Food"
+      note:
+        type: string
+        description: Note.
+        example: "Supermarket"
+
+  UpdateTransactionCategory:
+    type: object
+    properties:
+      category:
+        type: string
+        description: New category transaction.
+    required:
+      - category
+
+  UpdateTransactionNote:
+    type: object
+    properties:
+      note:
+        type: string
+        description: New note transaction.
+    required:
+      - note

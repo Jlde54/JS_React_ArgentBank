@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
-    token: null,
+    token: localStorage.getItem("token") || null,
     firstName: "",
     lastName: "",
     loading: false,
@@ -79,6 +79,7 @@ const userSlice = createSlice({
             state.lastName = ""
             state.loading = false
             state.error = null
+            localStorage.removeItem("token")
         },
         // updateUser: (state, action) => {
         //     state.firstName = action.payload.firstName
@@ -97,6 +98,7 @@ const userSlice = createSlice({
             state.token = action.payload.token
             state.firstName = action.payload.firstName
             state.lastName = action.payload.lastName
+            localStorage.setItem("token", action.payload.token)
         })
         .addCase(loginUser.rejected, (state, action) => {
             state.loading = false,
