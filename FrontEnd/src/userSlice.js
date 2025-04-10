@@ -68,11 +68,6 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers : {
-        // login: (state, action) => {
-        //     state.token = action.payload.token
-        //     state.firstName = action.payload.firstName
-        //     state.lastName = action.payload.lastName
-        // },
         logout: (state) => {
             state.token = null
             state.firstName = ""
@@ -80,13 +75,9 @@ const userSlice = createSlice({
             state.loading = false
             state.error = null
             localStorage.removeItem("token")
-        },
-        // updateUser: (state, action) => {
-        //     state.firstName = action.payload.firstName
-        //     state.lastName = action.payload.lastName
-        // }
+        }
     },
-    extraReducers: (builder) => {               // NEW
+    extraReducers: (builder) => {
         builder
         // Login user
         .addCase(loginUser.pending, (state) => {

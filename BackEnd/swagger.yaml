@@ -116,14 +116,42 @@ paths:
         '500':
           description: Internal Server Error
 
+  /user/accounts:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Bank Accounts API
+      description: API for fetching a user's bank accounts
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User's bank accounts retrieved successfully
+          schema:
+            type: array
+            items :
+              $ref: '#/definitions/Account'
+        '401':
+          description: Not authorized.
+        '500':
+          description: Internal Server Error
+
   /accounts/{accountId}/transactions:
     post:
       security:
         - Bearer: []
       tags:
         - Transactions
-      summary: Get current month transactions for a specific account
-      description: Retrieves all transactions made during the current month for the specified account.
+      summary: Get paginated transactions for a specific account
+      description: Retrieves a paginated list of transactions for the specified account.
       parameters:
         - in: path
           name: accountId
@@ -136,17 +164,14 @@ paths:
           schema:
             type: object
             properties:
-              dateRange:
-                type: object
-                properties:
-                  startDate:
-                    type: string
-                    format: date
-                    description: Start date to filter transactions.
-                  endDate:
-                    type: string
-                    format: date
-                    description: End date to filter transactions.
+              page:
+                type: integer
+                default: 1
+                description: Page number to retrieve.
+              limit:
+                type: integer
+                default: 10
+                description: Transactions per page.
       responses:
         200:
           description: Transaction list successfully retrieved.
@@ -316,6 +341,31 @@ definitions:
       lastName:
         type: string
 
+  Account:
+    type: object
+    properties:
+      accountId:
+        type: string
+        description: Account id.
+        example: "x8349"
+      name:
+        type: string
+        description: Account name
+        example: "Argent Bank Checking"
+      type:
+        type: string
+        description: Account type.
+        example: "Checking"
+      balance:
+        type: number
+        format: double
+        description: Available balance.
+        example: 2082.79
+      currency:
+        type: string
+        description: Currency.
+        example: "$"
+
   Transaction:
     type: object
     properties:
@@ -339,7 +389,7 @@ definitions:
       amount:
         type: number
         format: double
-        description: Amount.
+        description: Amount transaction.
         example: 5.00
       currency:
         type: string
@@ -349,6 +399,11 @@ definitions:
         type: string
         description: Transaction type.
         example: "Debit"
+      balance:
+        type: number
+        format: double
+        description: balance
+        example: 2082.79
       category:
         type: string
         description: Category.

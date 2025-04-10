@@ -23,7 +23,7 @@ function User () {
             <Header />
             <div className={styles.user}>
                 <section className={styles.user__header}>
-                    <h1 className={styles.user__title}>Welcome back<br />{user.firstName} {user.Link}</h1>
+                    <h1 className={styles.user__title}>Welcome back<br />{user.firstName}</h1>
                     <Link className={styles.user__editButton} to={'/Profile'}>Edit name</Link>
                 </section>
                 {DATA.map((item) => (
