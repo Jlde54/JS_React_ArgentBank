@@ -247,14 +247,14 @@ paths:
         500:
           description: Internal Server Error.
 
-  /transactions/{transactionId}/note:
+  /transactions/{transactionId}/new-field:
     patch:
       security:
         - Bearer: []
       tags:
         - Transactions
-      summary: Update the transaction note
-      description: Allows you to change the note associated with a specific transaction.
+      summary: Add a new field in a transaction
+      description: Allows to add a new field to a specific transaction.
       parameters:
         - in: path
           name: transactionId
@@ -265,10 +265,10 @@ paths:
           name: body
           required: true
           schema:
-            $ref: '#/definitions/UpdateTransactionNote'
+            $ref: '#/definitions/UpdateTransactionNewField'
       responses:
         200:
-          description: Note updated successfully.
+          description: New field added successfully.
           schema:
             $ref: '#/definitions/Transaction'
         400:
@@ -278,7 +278,7 @@ paths:
         404:
           description: Transaction not found.
         500:
-          description: Internal Server Error.
+          description: Internal Server Error
 
 securityDefinitions:
   Bearer:
@@ -422,11 +422,11 @@ definitions:
     required:
       - category
 
-  UpdateTransactionNote:
+  UpdateTransactionNewField:
     type: object
     properties:
-      note:
+      newField:
         type: string
-        description: New note transaction.
+        description: New user-defined field.
     required:
-      - note
+      - newField
